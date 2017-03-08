@@ -1,0 +1,7 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+          <block class="Space48\GtmDataLayer\Block\DataLayer" name="space48_gtm_datalayer" as="space48_gtm_datalayer" template="datalayer.phtml" />
+        </referenceContainer>
+    </body>
+</page>
