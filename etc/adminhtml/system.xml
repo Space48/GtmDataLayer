@@ -1,0 +1,26 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="space48" translate="label" sortOrder="400">
+            <label>Space48</label>
+        </tab>
+        <section id="s48_gtm_datalayer" translate="label" type="text" sortOrder="340" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>GTM Data Layer</label>
+            <tab>space48</tab>
+            <resource>Space48_GtmDataLayer::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_success_active" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled Order Success Page Tracking?</label>
+                    <depends>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
