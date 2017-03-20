@@ -35,6 +35,16 @@ class OrderSuccess extends Template {
     protected $registry;
 
     /**
+     * @var \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory
+     */
+    protected $productCollectionFactory;
+
+    /**
+     * @var \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory
+     */
+    protected $categoryCollectionFactory;
+
+    /**
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Cookie\Helper\Cookie $cookieHelper
      * @param \Magento\Framework\Json\Helper\Data $jsonHelper
@@ -47,6 +57,8 @@ class OrderSuccess extends Template {
         \Magento\Cookie\Helper\Cookie $cookieHelper,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\Framework\Registry $registry,
+        \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory,
+        \Magento\Catalog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory,
         GtmHelper $gtmHelper,
         array $data = []
     ) {
@@ -54,6 +66,8 @@ class OrderSuccess extends Template {
         $this->jsonHelper = $jsonHelper;
         $this->gtmHelper = $gtmHelper;
         $this->registry = $registry;
+        $this->productCollectionFactory = $productCollectionFactory;
+        $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->salesOrderCollection = $salesOrderCollection;
 
         parent::__construct(
