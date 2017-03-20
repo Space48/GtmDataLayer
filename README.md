@@ -3,20 +3,41 @@
 This module will add basic data layer variables to certain site pages so that they are available within Google Tag Manager.
 
 
-### Order
+### Order Success
 
-- transactionId
-- transactionAffiliation
-- transactionTotal
-- transactionShipping
-- transactionTax
-- transactionCouponCode
-- transactionDiscount
-- transactionSubTotal
-- transactionProducts[].sku
-- transactionProducts[].name
-- transactionProducts[].price
-- transactionProducts[].quantity
+- grand_total
+- subtotal
+- shipping_amount
+- discount_amount
+- coupon_code
+- base_grand_total
+- base_subtotal
+- base_discount_amount
+- base_shipping_amount
+- base_shipping_tax_amount
+- base_tax_amount
+- shipping_tax_amount
+- tax_amount
+- total_qty_ordered
+- customer_is_guest
+- base_shipping_discount_amount
+- base_subtotal_incl_tax
+- shipping_discount_amount
+- subtotal_incl_tax
+- weight
+- base_currency_code
+- customer_email
+- customer_firstname
+- customer_lastname
+- order_currency_code
+- shipping_incl_tax
+- base_shipping_incl_tax
+- pageType
+- order_items[]
+    - id
+    - name
+    - quantity
+    - sku
 
 ## Installation
 
