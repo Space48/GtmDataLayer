@@ -4,8 +4,7 @@ namespace Space48\GtmDataLayer\Helper;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper {
 
-    const XML_PATH_ACTIVE = 's48_gtm_datalayer/general/active';
-    const XML_PATH_ORDER_SUCCESS_ACTIVE = 's48_gtm_datalayer/general/order_success_active';
+    const XML_PATH = 's48_gtm_datalayer/default/';
 
     /**
      * @var \Magento\Framework\ObjectManagerInterface
@@ -29,7 +28,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
      * @return bool
      */
     public function isEnabled() {
-        return $this->scopeConfig->isSetFlag(self::XML_PATH_ACTIVE, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->isSetFlag(self::XML_PATH."active", \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
     }
 
     /**
@@ -38,14 +37,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
      * @param string
      * @return bool
      */
-    public function isTypeEnabled($type) {
+    public function isTypeEnabled($types = array()) {
 
-        if (!$this->isEnabled()) {
+        if (!$this->isEnabled() || !is_array($types)) {
             return false;
         }
 
-        return $this->scopeConfig->isSetFlag('s48_gtm_datalayer/general/'.$type.'_active',
-            \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        foreach ($types as $type) {
+            if (!$this->scopeConfig->isSetFlag(self::XML_PATH.$type.'_active',
+                \Magento\Store\Model\ScopeInterface::SCOPE_STORE)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 

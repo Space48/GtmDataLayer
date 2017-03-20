@@ -6,7 +6,6 @@ use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
 use Space48\GtmDataLayer\Helper\Data as GtmHelper;
 
-
 class OrderSuccessObserver implements ObserverInterface
 {
     /**
@@ -17,18 +16,18 @@ class OrderSuccessObserver implements ObserverInterface
     protected $gtmHelper = null;
 
     /**
-     * @var \Magento\Framework\View\LayoutInterface
+     * @var \Magento\Framework\Registry
      */
-    protected $_layout;
+    protected $registry;
 
     /**
      * @param \Magento\Framework\View\LayoutInterface $layout
      */
     public function __construct(
-        \Magento\Framework\View\LayoutInterface $layout,
+        \Magento\Framework\Registry $registry,
         GtmHelper $gtmHelper
     ) {
-        $this->_layout = $layout;
+        $this->registry = $registry;
         $this->gtmHelper = $gtmHelper;
     }
 
@@ -40,17 +39,11 @@ class OrderSuccessObserver implements ObserverInterface
      */
     public function execute(EventObserver $observer)
     {
-        if (!$this->gtmHelper->isTypeEnabled('order_success')) {
-            return;
-        }
-
         $orderIds = $observer->getEvent()->getOrderIds();
         if (empty($orderIds) || !is_array($orderIds)) {
             return;
         }
-        $block = $this->_layout->getBlock('space48_gtm_datalayer_ordersuccess');
-        if ($block) {
-            $block->setOrderIds($orderIds);
-        }
+
+        $this->registry->register('orderIds', $orderIds);
     }
 }

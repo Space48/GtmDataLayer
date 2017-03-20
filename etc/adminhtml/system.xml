@@ -8,13 +8,14 @@
             <label>GTM Data Layer</label>
             <tab>space48</tab>
             <resource>Space48_GtmDataLayer::config</resource>
-            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="default" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Default Data Layer</label>
                 <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
                 <field id="order_success_active" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Enabled Order Success Page Tracking?</label>
+                    <label>Enable Order Success Page Data</label>
                     <depends>
                         <field id="*/*/active">1</field>
                     </depends>
