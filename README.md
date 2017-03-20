@@ -83,3 +83,6 @@ protected function _toHtml()
 }
 ````
 
+### Configuration
+
+Go to `Stores > Configuration > Space48 > GTM DataLayer > Default Data Layer` to configure/enable.
