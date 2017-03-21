@@ -38,6 +38,7 @@ This module will add basic data layer variables to certain site pages so that th
     - name
     - quantity
     - sku
+    - category
 
 ## Installation
 
