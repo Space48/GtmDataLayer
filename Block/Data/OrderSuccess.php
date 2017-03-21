@@ -7,6 +7,8 @@ use Space48\GtmDataLayer\Helper\Data as GtmHelper;
 
 class OrderSuccess extends Template {
 
+    protected $defaultCategoryName;
+
     /**
      * @var \Magento\Cookie\Helper\Cookie
      */
@@ -69,6 +71,7 @@ class OrderSuccess extends Template {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
         $this->salesOrderCollection = $salesOrderCollection;
+        $this->defaultCategoryName = $this->gtmHelper->getConfig("item_category");
 
         parent::__construct(
             $context,
@@ -135,6 +138,8 @@ class OrderSuccess extends Template {
                 $product['price'] = $item->getBasePrice();
                 $product['quantity'] = $item->getQtyOrdered();
                 $product['sku'] = $item->getSku();
+                $productEntity = $this->getProductById($item->getProductId());
+                $product['category'] = $this->getCategoryName($productEntity);
                 $products[] = $product;
             }
 
@@ -146,18 +151,35 @@ class OrderSuccess extends Template {
         return implode("\n", $result);
     }
 
-    /*public function getProductCategory($productId)
+    public function getProductById($productId)
     {
-        $product = $this->productCollectionFactory->create()->load($productId);
+        return $this->productCollectionFactory->create()
+            ->addAttributeToFilter('entity_id', $productId)
+            ->addAttributeToSelect('name')
+            ->setPageSize(1)
+            ->getFirstItem();
+    }
+
+    public function getCategoryName($product)
+    {
         $categories = $product->getCategoryIds();
+        $categoryName = null;
 
         if(!empty($categories)){
-            $firstCategoryId = $categories[0];
-            $category = $this->categoryCollectionFactory->create()->load($firstCategoryId);
-
-            return $category->getName();
+            $category = $this->getFirstCategory($categories);
+            $categoryName = $category->getName();
         }
 
-        return "Furniture";
-    }*/
+        return is_null($categoryName) ? $this->defaultCategoryName : $categoryName;
+    }
+
+    public function getFirstCategory($categoryIds)
+    {
+        return $this->categoryCollectionFactory->create()
+            ->addAttributeToFilter('entity_id', array("in" => $categoryIds))
+            ->addAttributeToFilter('is_active', 1)
+            ->addAttributeToSelect('name')
+            ->setPageSize(1)
+            ->getFirstItem();
+    }
 }

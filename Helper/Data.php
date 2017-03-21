@@ -53,5 +53,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper {
         return true;
     }
 
+    public function getConfig($field) {
+        return $this->scopeConfig->getValue(self::XML_PATH.$field, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+    }
+
 
 }

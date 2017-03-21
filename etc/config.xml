@@ -4,6 +4,7 @@
             <default>
                 <active>1</active>
                 <order_success_active>1</order_success_active>
+                <item_category>Furniture</item_category>
             </default>
         </s48_gtm_datalayer>
     </default>
