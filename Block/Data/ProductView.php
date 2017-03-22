@@ -11,6 +11,8 @@ class ProductView extends \Magento\Framework\View\Element\Template
      */
     protected $_product = null;
 
+    protected $imageBuilder = null;
+
     /**
      * Core registry
      *
@@ -30,13 +32,8 @@ class ProductView extends \Magento\Framework\View\Element\Template
      */
     protected $jsonHelper;
 
-    /**
-     * @param \Magento\Framework\View\Element\Template\Context $context
-     * @param \Magento\Framework\Registry $registry
-     * @param array $data
-     */
     public function __construct(
-        \Magento\Framework\View\Element\Template\Context $context,
+        \Magento\Catalog\Block\Product\Context $context,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
         \Magento\Framework\Registry $registry,
         GtmHelper $gtmHelper,
@@ -45,18 +42,24 @@ class ProductView extends \Magento\Framework\View\Element\Template
         $this->_coreRegistry = $registry;
         $this->jsonHelper = $jsonHelper;
         $this->gtmHelper = $gtmHelper;
+        $this->imageBuilder = $context->getImageBuilder();
         parent::__construct($context, $data);
     }
 
-    /**
-     * @return Product
-     */
     public function getProduct()
     {
         if (!$this->_product) {
             $this->_product = $this->_coreRegistry->registry('product');
         }
         return $this->_product;
+    }
+
+    public function getImage($product, $imageId, $attributes = [])
+    {
+        return $this->imageBuilder->setProduct($product)
+            ->setImageId($imageId)
+            ->setAttributes($attributes)
+            ->create();
     }
 
     protected function _toHtml()
@@ -70,7 +73,10 @@ class ProductView extends \Magento\Framework\View\Element\Template
 
     public function getOutput()
     {
-        $json = array();
+        $json = $result = array();
+        $json['base_image'] = $this->escapeUrl($this->getImage($this->getProduct(), 'product_base_image')->getImageUrl());
+        $json['pageType'] = "productDetail";
+
         $result[] = 'dataLayer.push(' . $this->jsonHelper->jsonEncode($json) . ");\n";
 
         return implode("\n", $result);

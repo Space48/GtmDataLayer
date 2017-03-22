@@ -90,6 +90,7 @@ class OrderSuccess extends Template {
 
     public function getOutput()
     {
+        $json = $result = array();
         $orderIds = $this->registry->registry('orderIds');
 
         if (empty($orderIds) || !is_array($orderIds)) {
