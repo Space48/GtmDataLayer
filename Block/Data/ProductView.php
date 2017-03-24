@@ -2,9 +2,10 @@
 
 namespace Space48\GtmDataLayer\Block\Data;
 
+use Magento\Framework\View\Element\Template;
 use Space48\GtmDataLayer\Helper\Data as GtmHelper;
 
-class ProductView extends \Magento\Framework\View\Element\Template
+class ProductView extends Template
 {
     /**
      * @var Product
