@@ -3,6 +3,7 @@
     <module name="Space48_GtmDataLayer" setup_version="0.1.0">
         <sequence>
             <module name="Magento_GoogleTagManager" />
+            <module name="Magento_Customer" />
         </sequence>
     </module>
 </config>
