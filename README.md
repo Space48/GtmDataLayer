@@ -2,6 +2,8 @@
 
 This module will add basic data layer variables to certain site pages so that they are available within Google Tag Manager.
 
+### All Pages
+- customer_id (if logged in - uses local storage value)
 
 ### Order Success
 
@@ -39,6 +41,27 @@ This module will add basic data layer variables to certain site pages so that th
     - quantity
     - sku
     - category
+    
+### Cart
+
+- pageType
+
+### Category View
+
+- pageType
+
+### Product View
+
+- pageType
+- base_image
+
+### Checkout
+
+- pageType
+
+### Search Result
+
+- pageType
 
 ## Installation
 
