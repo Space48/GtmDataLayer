@@ -77,7 +77,7 @@ From the terminal execute the following:
 
 then
 
-`composer require "space48/gtmdatalayer:dev-master"`
+`composer require "space48/gtmdatalayer:{module-version}"`
 
 ## How to use it
 Once installed, go to the admin area and go to `Stores -> Configuration -> Space48 -> GTM Data Layer` and `enable` the extension.
