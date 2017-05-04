@@ -1,5 +1,7 @@
 var config = {
-    paths: {
-        'customerDataGtm': 'Space48_GtmDataLayer/js/customer-data'
+    map: {
+        '*': {
+            Space48Tracking:      'Space48_GtmDataLayer/js/tracking'
+        }
     }
 };

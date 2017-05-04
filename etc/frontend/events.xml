@@ -2,4 +2,7 @@
     <event name="checkout_onepage_controller_success_action">
         <observer name="space48_gtm_datalayer_order_success" instance="Space48\GtmDataLayer\Observer\Frontend\OrderSuccessObserver" />
     </event>
+    <event name="controller_action_predispatch">
+        <observer name="space48_gtm_customerdata" instance="Space48\GtmDataLayer\Observer\Frontend\ControllerActionPredispatchObserver" shared="false" />
+    </event>
 </config>

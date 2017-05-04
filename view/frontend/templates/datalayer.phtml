@@ -5,9 +5,24 @@
 <script type="text/x-magento-init">
 {
     "*": {
-        "customerDataGtm": {}
+        "Space48Tracking": {}
     }
 }
 </script>
+<script>
+    require([
+        'Space48_GtmDataLayer/js/tracking'
+    ], function(tracking){
+
+        var customerSession = tracking.getCookie("customerSession");
+
+        if (customerSession !== null) {
+            customerSession = tracking.parseJson(customerSession);
+            dataLayer.push(customerSession);
+            tracking.delCookie("customerSession");
+        }
+    });
+</script>
 <!-- End GTM Data Layer -->
+
 
