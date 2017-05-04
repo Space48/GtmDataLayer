@@ -35,7 +35,9 @@ class ControllerActionPredispatchObserver implements ObserverInterface
         $customerId = $this->currentCustomer->getCustomerId();
 
         if ($customerId) {
-            $customerSession['user_id'] = $customerId;
+            $customerSession = [
+                "user_id" => $customerId
+            ];
 
             $publicCookieMetadata = $this->cookieMetadataFactory->createPublicCookieMetadata()
                 ->setDuration(3600)
