@@ -136,9 +136,21 @@ class OrderSuccess extends Template {
             foreach ($order->getAllVisibleItems() as $item) {
                 $product['id'] = $item->getProductId();
                 $product['name'] = $item->getName();
-                $product['price'] = $item->getBasePrice();
+                $product['base_price'] = $item->getBasePrice();
+                $product['price'] = $item->getPrice();
+                $product['base_original_price'] = $item->getBaseOriginalPrice();
+                $product['original_price'] = $item->getOriginalPrice();
+                $product['price_incl_tax'] = $item->getPriceInclTax();
+                $product['base_price_incl_tax'] = $item->getBasePriceInclTax();
+                $product['tax_percent'] = $item->getTaxPercent();
+                $product['tax_amount'] = $item->getTaxAmount();
+                $product['base_tax_amount'] = $item->getBaseTaxAmount();
                 $product['quantity'] = $item->getQtyOrdered();
+                $product['discount_percent'] = $item->getDiscountPercent();
+                $product['discount_amount'] = $item->getDiscountAmount();
+                $product['base_discount_amount'] = $item->getBaseDiscountAmount();
                 $product['sku'] = $item->getSku();
+                $product['weight'] = $item->getWeight();
                 $productEntity = $this->getProductById($item->getProductId());
                 $product['category'] = $this->getCategoryName($productEntity);
                 $products[] = $product;
