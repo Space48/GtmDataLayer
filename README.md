@@ -37,9 +37,21 @@ This module will add basic data layer variables to certain site pages so that th
 - pageType
 - order_items[]
     - id
-    - name
+    - base_price
+    - price
+    - base_original_price
+    - original_price
+    - price_incl_tax
+    - base_price_incl_tax
+    - tax_percent
+    - tax_amount
+    - base_tax_amount
     - quantity
+    - discount_percent
+    - discount_amount
+    - base_discount_amount
     - sku
+    - weight
     - category
     
 ### Cart
@@ -110,3 +122,15 @@ protected function _toHtml()
 ### Configuration
 
 Go to `Stores > Configuration > Space48 > GTM DataLayer > Default Data Layer` to configure/enable.
+
+### Using Google Tag Manager
+
+All of the monetary values provided by this module are decimals with 4 decimal places. Some trackers such as Affiliate Window require this to be rounded to two decimal places. If so simply use the following in the GTM tag:
+
+````
+function formatPrice(price)
+{
+    price = parseFloat(price);
+    return price.toFixed(2);
+}
+````
