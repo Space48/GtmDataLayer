@@ -2,16 +2,9 @@
 <script>
     <?php echo $block->getChildHtml() ?>
 </script>
-<script type="text/x-magento-init">
-{
-    "*": {
-        "Space48Tracking": {}
-    }
-}
-</script>
 <script>
     require([
-        'Space48_GtmDataLayer/js/tracking'
+        'Space48Tracking'
     ], function(tracking){
 
         var customerSession = tracking.getCookie("customerSession");
