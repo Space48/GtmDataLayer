@@ -1,4 +1,7 @@
 # GTM Data Layer
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Space48/GtmDataLayer/badges/quality-score.png?b=master&s=40b352a1fec21670570fddd703321ad5251e04b9)](https://scrutinizer-ci.com/g/Space48/GtmDataLayer/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/Space48/GtmDataLayer/badges/build.png?b=master&s=d902f6f6a71fe3f193c4cfe469e63dcf798f6ab2)](https://scrutinizer-ci.com/g/Space48/GtmDataLayer/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/Space48/GtmDataLayer/badges/coverage.png?b=master&s=3a3c42cd6d60da0006fe80942729ebdf5534f392)](https://scrutinizer-ci.com/g/Space48/GtmDataLayer/?branch=master)
 
 This module will add basic data layer variables to certain site pages so that they are available within Google Tag Manager.
 
