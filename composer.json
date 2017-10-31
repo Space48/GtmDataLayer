@@ -3,14 +3,14 @@
     "description": "N/A",
     "require": {
         "php": "~7.0.0",
-        "magento/framework": "100.1.*"
+        "magento/framework": "^100.1.0| ^101.0.0"
     },
     "require-dev": {
     "magento/marketplace-eqp": "~1.0.5",
     "phpunit/phpunit": "4.1.0"
   },
     "type": "magento2-module",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "license": [
         "proprietary"
     ],
