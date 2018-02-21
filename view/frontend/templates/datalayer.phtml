@@ -1,7 +1,8 @@
 <!-- GTM Data Layer -->
 <script>
-    var dataLayer = dataLayer || [];
-    <?php echo $block->getChildHtml() ?>
+    if (typeof dataLayer !== 'undefined') {
+        <?php echo $block->getChildHtml() ?>
+    }
 </script>
 <script>
     require([
@@ -10,7 +11,7 @@
 
         var customerSession = tracking.getCookie("customerSession");
 
-        if (customerSession !== null) {
+        if (customerSession !== null && typeof dataLayer !== 'undefined') {
             customerSession = tracking.parseJson(customerSession);
             dataLayer.push(customerSession);
             tracking.delCookie("customerSession");
