@@ -88,6 +88,19 @@ class OrderSuccess extends Template {
         return $this->getOutput();
     }
 
+    public function getOrderPaymentMethod($order)
+    {
+        try {
+            $payment = $order->getPayment();
+            $method = $payment->getMethodInstance();
+            return $method->getTitle();
+        } catch (\Exception $exception) {
+            // do nothing
+        }
+
+        return "";
+    }
+
     public function getOutput()
     {
         $json = $result = array();
@@ -129,19 +142,30 @@ class OrderSuccess extends Template {
             $json['order_currency_code'] = $order['order_currency_code'];
             $json['shipping_incl_tax'] = $order['shipping_incl_tax'];
             $json['base_shipping_incl_tax'] = $order['base_shipping_incl_tax'];
+            $json['shipping_description'] = $order['shipping_description'];
+            $json['order_date'] = $order['created_at'];
+            $json['payment_method'] = $this->getOrderPaymentMethod($order);
             $json['pageType'] = "orderSuccess";
 
             $products = [];
+            $totalValue = 0;
+
             /** @var \Magento\Sales\Model\Order\Item $item*/
             foreach ($order->getAllVisibleItems() as $item) {
                 $product['id'] = $item->getProductId();
                 $product['name'] = $item->getName();
                 $product['base_price'] = $item->getBasePrice();
                 $product['price'] = $item->getPrice();
-                $product['base_original_price'] = $item->getBaseOriginalPrice();
-                $product['original_price'] = $item->getOriginalPrice();
+                $product['price'] = $item->getPrice();
+                $product['base_price'] = $item->getBasePrice();
                 $product['price_incl_tax'] = $item->getPriceInclTax();
                 $product['base_price_incl_tax'] = $item->getBasePriceInclTax();
+                $product['row_total'] = $item->getRowTotal();
+                $product['base_row_total'] = $item->getBaseRowTotal();
+                $product['row_total_incl_tax'] = $item->getRowTotalInclTax();
+                $product['base_row_total_incl_tax'] = $item->getBaseRowTotalInclTax();
+                $product['base_original_price'] = $item->getBaseOriginalPrice();
+                $product['original_price'] = $item->getOriginalPrice();
                 $product['tax_percent'] = $item->getTaxPercent();
                 $product['tax_amount'] = $item->getTaxAmount();
                 $product['base_tax_amount'] = $item->getBaseTaxAmount();
@@ -154,9 +178,11 @@ class OrderSuccess extends Template {
                 $productEntity = $this->getProductById($item->getProductId());
                 $product['category'] = $this->getCategoryName($productEntity);
                 $products[] = $product;
+                $totalValue += $product['base_row_total_incl_tax'];
             }
 
             $json['order_items'] = $products;
+            $json['ecomm_totalvalue'] = $totalValue;
 
             $result[] = 'dataLayer.push(' . $this->jsonHelper->jsonEncode($json) . ");\n";
         }
