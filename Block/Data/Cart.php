@@ -68,9 +68,6 @@ class Cart extends Template {
         $totalValue = 0;
 
         foreach($items as $item) {
-
-            $quoteItem['quote_item_id'] = $item->getId();
-            $quoteItem['quote_id'] = $item->getQuoteId();
             $quoteItem['id'] = $item->getProductId();
             $quoteItem['name'] = $item->getName();
             $quoteItem['sku'] = $item->getSku();
