@@ -74,7 +74,17 @@ class ProductView extends Template
     public function getOutput()
     {
         $json = $result = array();
-        $json['base_image'] = $this->escapeUrl($this->getImage($this->getProduct(), 'product_base_image')->getImageUrl());
+        $product = $this->getProduct();
+
+        $json['base_price_excl_tax'] = $product->getPriceInfo()->getPrice('final_price')->getAmount()->getBaseAmount();
+        $json['base_price_incl_tax'] = $product->getFinalPrice();
+
+        // Dynamic Remarketing Parameters
+        $json['ecomm_prodid'] = $product->getSku();
+        $json['ecomm_totalvalue'] = $json['base_price_incl_tax'];
+
+
+        $json['base_image'] = $this->escapeUrl($this->getImage($product, 'product_base_image')->getImageUrl());
         $json['pageType'] = "productDetail";
 
         $result[] = 'dataLayer.push(' . $this->jsonHelper->jsonEncode($json) . ");\n";

@@ -37,15 +37,22 @@ This module will add basic data layer variables to certain site pages so that th
 - order_currency_code
 - shipping_incl_tax
 - base_shipping_incl_tax
+- payment_method
+- shipping_description
+- ecomm_totalvalue
 - pageType
 - order_items[]
     - id
-    - base_price
     - price
+    - base_price
     - base_original_price
     - original_price
     - price_incl_tax
     - base_price_incl_tax
+    - row_total
+    - base_row_total
+    - row_total_incl_tax
+    - base_row_total_incl_tax
     - tax_percent
     - tax_amount
     - base_tax_amount
@@ -60,6 +67,25 @@ This module will add basic data layer variables to certain site pages so that th
 ### Cart
 
 - pageType
+- subtotal
+- grand_total
+- total_items
+- total_qty
+- ecomm_totalvalue
+- ecomm_prodid
+- total_qty
+- items[]
+    - id
+    - name
+    - sku
+    - price
+    - base_price
+    - price_incl_tax
+    - base_price_incl_tax
+    - row_total
+    - base_row_total
+    - row_total_incl_tax
+    - base_row_total_incl_tax
 
 ### Category View
 
@@ -69,6 +95,10 @@ This module will add basic data layer variables to certain site pages so that th
 
 - pageType
 - base_image
+- base_price_excl_tax
+- base_price_incl_tax
+- ecomm_prodid
+- ecomm_totalvalue
 
 ### Checkout
 

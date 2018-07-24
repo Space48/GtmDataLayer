@@ -1,8 +1,8 @@
 <!-- GTM Data Layer -->
 <script>
-    if (typeof dataLayer !== 'undefined') {
-        <?php echo $block->getChildHtml() ?>
-    }
+    // if the dataLayer variable isn't set, create it as an empty array
+    var dataLayer = dataLayer || [];
+    <?php echo $block->getChildHtml() ?>
 </script>
 <script>
     require([
