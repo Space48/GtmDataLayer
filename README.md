@@ -99,6 +99,7 @@ This module will add basic data layer variables to certain site pages so that th
 - base_price_incl_tax
 - ecomm_prodid
 - ecomm_totalvalue
+- availability
 
 ### Checkout
 
