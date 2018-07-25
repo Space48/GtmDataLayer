@@ -2,6 +2,7 @@
 
 namespace Space48\GtmDataLayer\Block\Data;
 
+use Magento\CatalogInventory\Api\StockRegistryInterface;
 use Magento\Framework\View\Element\Template;
 use Space48\GtmDataLayer\Helper\Data as GtmHelper;
 
@@ -33,9 +34,15 @@ class ProductView extends Template
      */
     protected $jsonHelper;
 
+    /**
+     * @var StockRegistryInterface
+     */
+    protected $stockRegistry;
+
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
+        StockRegistryInterface $stockRegistry,
         GtmHelper $gtmHelper,
         array $data = []
     ) {
@@ -43,6 +50,7 @@ class ProductView extends Template
         $this->jsonHelper = $jsonHelper;
         $this->gtmHelper = $gtmHelper;
         $this->imageBuilder = $context->getImageBuilder();
+        $this->stockRegistry = $stockRegistry;
         parent::__construct($context, $data);
     }
 
@@ -60,6 +68,12 @@ class ProductView extends Template
             ->setImageId($imageId)
             ->setAttributes($attributes)
             ->create();
+    }
+
+    public function getProductAvailability($product)
+    {
+        return $this->stockRegistry->getProductStockStatus($product->getId()) == "1"
+            ? "in stock" : "out of stock";
     }
 
     protected function _toHtml()
@@ -83,7 +97,7 @@ class ProductView extends Template
         $json['ecomm_prodid'] = $product->getSku();
         $json['ecomm_totalvalue'] = $json['base_price_incl_tax'];
 
-
+        $json['availability'] = $this->getProductAvailability($product);
         $json['base_image'] = $this->escapeUrl($this->getImage($product, 'product_base_image')->getImageUrl());
         $json['pageType'] = "productDetail";
 
@@ -91,6 +105,4 @@ class ProductView extends Template
 
         return implode("\n", $result);
     }
-
-
 }
