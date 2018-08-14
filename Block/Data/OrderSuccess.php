@@ -156,7 +156,6 @@ class OrderSuccess extends Template {
                 $product['name'] = $item->getName();
                 $product['base_price'] = $item->getBasePrice();
                 $product['price'] = $item->getPrice();
-                $product['price'] = $item->getPrice();
                 $product['base_price'] = $item->getBasePrice();
                 $product['price_incl_tax'] = $item->getPriceInclTax();
                 $product['base_price_incl_tax'] = $item->getBasePriceInclTax();
@@ -183,6 +182,27 @@ class OrderSuccess extends Template {
 
             $json['order_items'] = $products;
             $json['ecomm_totalvalue'] = $totalValue;
+
+            // Added Support for Classic Google Analytics
+
+            $itemsTax = 0;
+            $transactionProducts = [];
+
+            foreach ($order->getAllVisibleItems() as $item) {
+
+                $transactionProduct['name'] = $item->getName();
+                $transactionProduct['price'] = $item->getBasePriceInclTax();
+                $transactionProduct['quantity'] = $item->getQtyOrdered();
+                $transactionProduct['sku'] = $item->getSku();
+                $transactionProducts[] = $transactionProduct;
+                $itemsTax += $item->getBaseTaxAmount();
+            }
+
+            $json['transactionId'] = $order['increment_id'];
+            $json['transactionTotal'] = $order['base_grand_total'];
+            $json['transactionTax'] = $itemsTax;
+            $json['transactionShipping'] = $order['base_shipping_incl_tax'];
+            $json['transactionProducts'] = $transactionProducts;
 
             $result[] = 'dataLayer.push(' . $this->jsonHelper->jsonEncode($json) . ");\n";
         }
