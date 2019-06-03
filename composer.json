@@ -2,15 +2,15 @@
     "name": "space48/gtmdatalayer",
     "description": "N/A",
     "require": {
-        "php": "^7.0.0",
-        "magento/framework": "^100.1.0|^101.0.0"
+        "php": ">=7.0 <=7.3",
+        "magento/framework": "^100.1.0|^101.0.0|^102.0.0"
     },
     "require-dev": {
         "magento/marketplace-eqp": "~1.0.5",
         "phpunit/phpunit": "4.1.0"
     },
     "type": "magento2-module",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "license": [
         "proprietary"
     ],
