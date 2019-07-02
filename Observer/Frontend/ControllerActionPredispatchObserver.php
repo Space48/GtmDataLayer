@@ -13,6 +13,7 @@ class ControllerActionPredispatchObserver implements ObserverInterface
     const CUSTOMER_SESSION_COOKIE_NAME = "customerSession";
     protected $currentCustomer;
 
+    private $customerSession;
     /**
      * @param \Magento\Framework\View\LayoutInterface $layout
      */
@@ -35,9 +36,7 @@ class ControllerActionPredispatchObserver implements ObserverInterface
         $customerId = $this->currentCustomer->getCustomerId();
 
         if ($customerId) {
-            $customerSession = [
-                "user_id" => $customerId
-            ];
+            $this->setCustomerSession("user_id", $customerId);
 
             $publicCookieMetadata = $this->cookieMetadataFactory->createPublicCookieMetadata()
                 ->setDuration(3600)
@@ -46,9 +45,33 @@ class ControllerActionPredispatchObserver implements ObserverInterface
 
             $this->cookieManager->setPublicCookie(
                 self::CUSTOMER_SESSION_COOKIE_NAME,
-                $this->jsonHelper->jsonEncode($customerSession),
+                $this->jsonHelper->jsonEncode($this->getCustomerSession()),
                 $publicCookieMetadata
             );
+        }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomerSession()
+    {
+        return $this->customerSession;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     */
+    public function setCustomerSession($key, $value)
+    {
+        $this->customerSession[$key] = $value;
+    }
+
+    public function unsetCustomerSession($key)
+    {
+        if (isset($this->customerSession[$key])) {
+            unset($this->customerSession[$key]);
         }
     }
 }
