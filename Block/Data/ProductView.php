@@ -42,7 +42,6 @@ class ProductView extends Template
     public function __construct(
         \Magento\Catalog\Block\Product\Context $context,
         \Magento\Framework\Json\Helper\Data $jsonHelper,
-        StockRegistryInterface $stockRegistry,
         GtmHelper $gtmHelper,
         array $data = []
     ) {
@@ -50,7 +49,7 @@ class ProductView extends Template
         $this->jsonHelper = $jsonHelper;
         $this->gtmHelper = $gtmHelper;
         $this->imageBuilder = $context->getImageBuilder();
-        $this->stockRegistry = $stockRegistry;
+        $this->stockRegistry = $context->getStockRegistry();
         parent::__construct($context, $data);
     }
 
